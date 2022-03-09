@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{mathtools}
+\usepackage{amsmath}
+
+
+%%%%% Please play around with this template. Try to understand the difference between inline text mode and equation mode. You will see that there are dollar ($) signs in the text. This allows you to write
+%%%%% in math mode. If you want to write an equation, you can do as the one below, but there are also other ways. Try google it!
+
+\title{Assignment 1}
+\date{March 2022}
+\author{%
+  HongGilDong \\ % You should type your name here
+  20291291\\% Your student number
+  UNIST\\
+  \texttt{dmlabisthebest@unist.ac.kr} \\% You email
+}
+\begin{document} % Your document starts here
+
+
+\maketitle % This creates the title 
+
+\section{K-means algorithm} % You can create section
+The k-means algorithm aims to divide a given set of observations into a user-defined number of $k$ clusters. All observations $x$ are allocated to their nearest center-point during each update step (see equation \eqref{eqn:kmeans_assign_step}). % You can reference the equation number by using the command \eqref. This creates a hyperlink when you click the number. \\
+
+% You can write equations like below.
+\begin{equation}
+S_i^{(t)} = \big \{ x_p : \big \| x_p - \mu^{(t)}_i \big \|^2 \le \big \| x_p - \mu^{(t)}_j \big \|^2 \ \forall j, 1 \le j \le k \big\}
+\label{eqn:kmeans_assign_step}
+\end{equation}
+
+% Now, you can start your homework from here. Make sure you read the instruction before you start! Good luck with your semester!
+
+\end{document}

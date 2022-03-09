@@ -1,0 +1,78 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{mathtools}
+\usepackage{amsmath}
+
+\usepackage{bm}
+
+%%%%% Please play around with this template. Try to understand the difference between inline text mode and equation mode. You will see that there are dollar ($) signs in the text. This allows you to write
+%%%%% in math mode. If you want to write an equation, you can do as the one below, but there are also other ways. Try google it!
+
+\title{Assignment 1}
+\date{March 2022}
+\author{%
+  Eldor Fozilov \\ % You should type your name here
+  20192032 \\ % Your student number
+  UNIST \\
+  \texttt{eldorfozilov@unist.ac.kr} \\% You email
+}
+\begin{document} % Your document starts here
+
+
+\maketitle % This creates the title 
+
+\section{K-means algorithm} % You can create section
+The k-means algorithm aims to divide a given set of observations into a user-defined number of $k$ clusters. All observations $x$ are allocated to their nearest center-point during each update step (see equation \eqref{eqn:kmeans_assign_step}).\\  % You can reference the equation number by using the command \eqref. This creates a hyperlink when you click the number. \\
+
+% You can write equations like below.
+\begin{equation}
+S_i^{(t)} = \big \{ x_p : \big \| x_p - \mu^{(t)}_i \big \|^2 \le \big \| x_p - \mu^{(t)}_j \big \|^2 \ \forall j, 1 \le j \le k \big\}
+\label{eqn:kmeans_assign_step}
+\end{equation}
+
+% Now, you can start your homework from here. Make sure you read the instruction before you start! Good luck with your semester!
+
+\section{Maximum Likelihood Estimate [10pt]}
+The likelihood function is nothing but a parameterized density $p(D\,|\,\bm{\theta}\ )$ that is used to model a set of data $D = \{ \bm{x}_1, \bm{x}_2, ..., \bm{x}_n \}$ which are assumed to be drawn independently from $p(D\,|\,\bm{\theta}\ )$:
+\begin{equation}
+  p(D\,|\,\bm{\theta}\ ) = p(\bm{x}_1\,|\,\bm{\theta}\ )\ \cdot \ p(\bm{x}_2\,|\,\boldsymbol{\theta}\ ) \ \cdot \ ...\ p(\bm{x}_n\,|\,\bm{\theta}\ )
+  = \prod_{k = 1}^n p(\bm{x}_k\,|\,\bm{\theta}\ )
+\end{equation} 
+
+\noindent Maximum likelihood seeks to find the optimum values for the parameters by
+maximizing a likelihood function form the training data. The log-likelihood is
+given by
+
+\begin{equation}
+    l(\theta) = \sum_{k=1}^n \mathit{ln}\ p(x_k|\theta)
+\end{equation}
+
+\section{Gaussian distribution [10pt]}
+
+A Gaussian distribution is a type of continuous probability distribution for a
+real-valued random variable. Univariate Gaussian distribution that is of the form
+
+\begin{equation}
+    p(x) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp{\bigg[ -\frac{1}{2} \bigg( \frac{x-\mu}{\sigma} \bigg)^2 \bigg]}
+\end{equation} \\
+\newline
+
+\noindent Multivariate Gaussian distribution that is of the form
+\begin{equation}
+    p(\bm{x}) = \frac{1}{(2\pi)^{d/2} |\Sigma|^{1/2}}\exp{\bigg [-\frac{1}{2}(\bm{x -\mu})^t\Sigma^{-1}(\bm{x-\mu}) \bigg]}
+\end{equation}
+
+\newpage
+\section{Estimation method derivation [10pt]}
+\begin{center}
+Please show the estimation results of maximum likelihood for $p(x) \sim N(\mu|\sigma^2)$, where both $\mu$ and $\sigma^2$ are unknown.
+\end{center}
+\includegraphics[width=\textwidth]{cool_cat}
+
+\end{document} 
