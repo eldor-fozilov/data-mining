@@ -1,3 +1,4 @@
 textbooks/
 syllabus.pdf
 *.zip
+*.ipynb_checkpoints
