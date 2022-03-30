@@ -1,0 +1,349 @@
+\documentclass{homework2_template}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{bm}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\title{IE30301 - Data Mining Assignment 2 (70 Points)}
+\author{Eldor Fozilov}
+\date{March 30, 2022}
+
+
+\begin{document}
+    \maketitle
+    \exercise
+    \subsection{}
+\begin{enumerate}
+  \item \textbf{Supervised learning} refers a task aimed at predicting a variable of interest (target) based on a set of other variables (predictors). There are many supervised learning techniques such as linear regression, logistic regression, support vector machines and much more, which all share the following characteristic: they require data that has labels (observed targets) for each sample of (training) data in order to "learn" from it and offer a prediction in the end when new data fed into the model. For example, using supervised learning, we can get predictions on whether a particular email is spam or not based on some labeled data of spam and non-spam emails.
+  
+  \item \textbf{Unsupervised learning} refers a task aimed at finding patterns and the underlying structure in the data set itself, which are easy to interpret for humans. This definition can tell us that the goal is completely different to that of supervised learning and there is no need for labeling the data set in unsupervised learning. Unsupervised learning techniques are commonly used to do the following four things: data clustering, anomaly detection, association (think of recommendation systems), and dimensionality reduction.  
+  
+  \item \textbf{Regression} is referred to a set of statistical methods whose purpose is to identify cause-and-effect relationships between different variables and/or to predict a variable of interest based on some other variables. In regression models, the target variable should be a continuous variable, while predictor variables can be of any type. For example, using regression analysis, we can predict the income of a person based on his or her education, age and gender (there might be a lot of other relevant variables). 
+  
+  \item \textbf{Classification} is similar to regression in that classification models also try to find inherent relationships between different variables and/or predict a target variable based on other variables. However, in classification, as the name might suggest, the target variable is not a continuous variable, but a categorical variable. For example, predicting whether an image contains a cat or not is considered a classification problem, and can be solved using various classification models such as logistic regression, naive bayes, and support vector machines.
+  
+  \item \textbf{Clustering} is considered an unsupervised learning task, in which a clustering algorithm is applied to a dataset to identify groupings between data points that are "similar" to each other. Similarity might mean Euclidean distance between data points if variables in a dataset are continuous, but it can also mean other things depending on specific problem measures. A classical application of clustering algorithms was in the field of marketing, in which marketers try to find customers with similar buying behavior and create more personalized campaigns for those specific groups. Clustering techniques help them accomplish that task in a data-driven way.
+
+\end{enumerate}
+
+\subsection{}
+\begin{enumerate}
+    \item \textbf{Nominal} variables represent values that don't have any numeric meaning and thus they cannot be ordered. For example, variable such as gender (male | female), color of a car (blue | red), and types of movies (romance | thriller) can be considered as nominal variables.
+    
+    \item \textbf{Binary} variables can only be in two states, thus is why they are called binary. For example, the result of a coin toss can be either tail or head, but not both, thus it can be considered as a binary variable.
+    
+    \item \textbf{Continuous} variables can take any numerical value within a specified range, and that range can also be infinite. For example, the price of stock can be considered as a continuous variable since it can have value between 0 and a very large positive number, say 10000\$.
+    
+    \item \textbf{Numeric} variables have clear numeric meaning and thus can be ranked. For example, the revenue amount of a company in various periods can be considered a numerical variable. 
+    
+    \item \textbf{Ordinal} variables might not be represented as numbers per se, however they can be ordered. For example, answers to survey questions, which are related to how much a person agrees with some statement, such as "don't agree", "somewhat agree", "totally agree" can be considered as an ordinal variable.
+    
+\end{enumerate}
+
+\subsection{}
+\begin{enumerate}
+    \item \textbf{Models} help us understand or predict the real world. A good analogy for a model is a paper map, which is an extremely simplified version of the real world, but still can help a lot. A phenomenon that we are trying to understand or predict its future behavior, in reality, can be influenced by sum of a large number of factors, where the individual influences may vary based on those factors and our target. Using a model, we try to estimate those individual influences, which are commonly called as "\textbf{parameters}" among people and in textbook definitions. We try to make sure that after estimating those parameters using data, our model results can be trusted and be applicable on new data. In other words, it can \textbf{generalize} to new data and give us useful information about the real world. 
+\end{enumerate}
+
+\exercise{}
+Since the given set of data $\bm{x} = \{ {x}_1, {x}_2, ..., {x}_n \}$ is assumed to be i.i.d and and follow a distribution of $ \mathcal{N}(\mu,\sigma^2)$, the likelihood function, which is a parameterized density $p(\bm{x}\,|\,\mu,\sigma^2)$, will look like the following:
+\begin{equation}
+  p(\bm{x}\,|\,\mu,\sigma^2) = p(X = x_1\,|\,\mu,\sigma^2)\ \cdot \ p(X = x_2\,|\,\mu,\sigma^2) \ \cdot \ ...\ p(X = x_n\,|\,\mu,\sigma^2)
+  = \prod_{k = 1}^n p(X = x_k\,|\,\mu,\sigma^2)
+\end{equation} 
+
+Its corresponding log-likelihood function is given by
+
+\begin{equation}
+    l(\mu,\sigma^2) = \sum_{k=1}^n \ln p(X = x_k\,|\,\mu,\sigma^2)
+\end{equation}
+Since we know the distribution of each data point, we can represent the log-likelihood as
+\begin{equation}
+l(\mu,\sigma^2) = \sum_{k=1}^n \ln \left(\dfrac{1}{\sqrt{2 \pi \sigma^2}}\, e^{\,\dfrac{-(x_k- \mu)^2}{2\sigma^2}}\right)
+\end{equation}
+By utilizing  logarithmic function properties such as \bm{$\ln a\cdot b = \ln a + \ln b$}, \bm{$\ln a^b = b\ln a$} and \bm{$\ln e^r = r$}, we can write the above expression as
+
+\begin{equation}
+\begin{split}
+& l(\mu,\sigma^2) = \sum_{k=1}^n\ln \left(\dfrac{1}{\sqrt{2 \pi \sigma^2}}\, e^{\,\dfrac{-(x_k- \mu)^2}{2\sigma^2}}\right) = \sum_{k=1}^n\left[ \ln \left(\dfrac{1}{\sqrt{2 \pi \sigma^2}}\right) -\left(\dfrac{(x_k-\mu)^2}{2\sigma^2}\right)\right] = \\
+& = n\ln \left( \dfrac{1}{\sqrt{2\pi \sigma^2}}\right) - \sum_{k=1}^n\left(\dfrac{(x_k-\mu)^2}{2\sigma^2}\right)
+= -\dfrac{n}{2}\ln 2\pi\sigma^2 - \dfrac{1}{{2\sigma^2}}\sum_{k=1}^n (x_k-\mu)^2
+\end{split}
+\end{equation}
+
+Now, in order to find $\hat{\mu}_{ML}$ and $\hat{\sigma}_{ML}^2$, we will take the partial derivatives of the log-likelihood function with respect to $\mu$ and $\sigma^2$, and then equal them to zero.
+
+\begin{equation}
+\begin{gathered}
+\frac{\partial l}{\partial \mu} = -\frac{2}{2\sigma^2}\cdot (-1) \sum_{k=1}^n (x_k - \mu) = \frac{1}{\sigma^2}\left(\sum_{k=1}^n x_k - n\mu\right) = 0 \\
+\Rightarrow \sum_{k=1}^n x_k = n\mu
+\end{gathered}
+\end{equation}
+
+Based on equation 2.5, we can conclude that indeed {\large$\hat{\mu}_{ML} = \frac{1}{n} \sum_{k=1}^n x_k$}
+
+We substitute that $\hat{\mu}_{ML}$ into the following equation instead of $\mu$:
+\begin{equation}
+\frac{\partial l}{\partial \sigma^2} = -\frac{n}{2\sigma^2} + \frac{1}{2\sigma^4} \sum_{k=1}^n (x_k - \mu)^2 = 0
+\end{equation}
+\begin{equation}
+\frac{\partial l}{\partial \sigma^2} = -\frac{n}{2\sigma^2} + \frac{1}{2\sigma^4} \sum_{k=1}^n (x_k - \hat{\mu}_{ML})^2 = 0
+\end{equation}
+
+\begin{equation}
+\frac{1}{2\sigma^4} \sum_{k=1}^n (x_k - \hat{\mu}_{ML})^2 = \frac{n}{2\sigma^2}
+\end{equation}
+
+\begin{equation}
+\Rightarrow \hat{\sigma}_{ML}^2 = \frac{1}{n} \sum_{k=1}^n (x_k - \hat{\mu}_{ML})^2
+\end{equation}
+
+\exercise{}
+\subsection{}
+\includegraphics[width=\textwidth]{exercise 3.1 (part1).jpg}
+
+\includegraphics[width=\textwidth]{exercise 3.1 (part2).jpg}
+
+\subsection{}
+
+\includegraphics[width=\textwidth]{exercise 3.2 (part1).jpg}
+
+\includegraphics[width=\textwidth]{exercise 3.2 (part2).jpg}
+
+\includegraphics[width=\textwidth]{exercise 3.2 (part3).jpg}
+
+\includegraphics[width=\textwidth]{exercise 3.2 (part4).jpg}
+
+\includegraphics[width=\textwidth]{exercise 3.2 (part5).jpg}
+
+\subsection{}
+The reason why we need to use a t-test (instead of z-test) to test the statistical significance of parameters such as $\hat{\beta}_0$ and $\hat{\beta}_1$ is that we don't observe the value of the population variance $\sigma^2$ and thus we can only estimate it using the sampled data. 
+
+\exercise{}
+\subsection{}
+
+If we can prove that $\sum_{i=1}^n (\hat{y_i} - \bar{y})^2$ is equal to $ \dfrac{S_{xy}^2}{S_{xx}}$, which is given as \textbf{SSR}, and $\sum_{i=1}^n (y_i - \hat{y_i})^2$ is equal to $S_{yy} - \dfrac{S_{xy}^2}{S_{xx}}$, which is given as \textbf{SSE}, then we can be sure that the following expression of
+
+statistic $F^\star$ using SSR and SSE is correct:
+\[F^\star = \dfrac{\dfrac{SSR}{1}}{\dfrac{SSE}{n-2}} \]
+
+{\small Note: in the above equation, \textbf{n} is the total number of samples in a data set}
+
+So, we will now prove those two things:
+\begin{equation}
+\begin{split}
+& \sum_{i=1}^n (\hat{y_i} - \bar{y})^2 = \sum_{i=1}^n (\hat{\beta_0} + \hat{\beta_1}x_i - (\hat{\beta_0} + \hat{\beta_1}\bar{x}))^2 = \sum_{i=1}^n ( \hat{\beta_1}x_i - \hat{\beta_1}\bar{x})^2 = \hat{\beta_1}^2\sum_{i=1}^n (x_i - \bar{x})^2 = \\
+& = \left(\dfrac{S_{xy}}{S_{xx}}\right)^2 \sum_{i=1}^n (x_i - \bar{x})^2 = \left(\dfrac{S_{xy}}{\sum_{i=1}^n (x_i - \bar{x})^2}\right)^2\sum_{i=1}^n (x_i - \bar{x})^2 = \dfrac{S_{xy}^2}{S_{xx}}
+\end{split}
+\end{equation}
+
+\begin{equation*}
+\begin{gathered}
+\sum_{i=1}^n (y_i - \hat{y_i})^2 = \sum_{i=1}^n ((y_i - \bar{y}) - (\hat{y_i} - \bar{y}))^2 = \\
+\sum_{i=1}^n (y_i - \bar{y})^2 - 2\sum_{i=1}^n (y_i - \bar{y}) (\hat{y_i} - \bar{y}) + \sum_{i=1}^n (\hat{y_i} - \bar{y})^2 = \\
+S_{yy} - 2\left(\sum_{i=1}^n y_i\hat{y_i} - \sum_{i=1}^n \bar{y}\hat{y} - \sum_{i=1}^n \bar{y}y_i + \sum_{i=1}^n \bar{y}^2 \right) + \dfrac{S_{xy}^2}{S_{xx}} = \\   
+S_{yy} - 2\left(\sum_{i=1}^n y_i(\hat{\beta_0} + \hat{\beta_1}x_i) - \sum_{i=1}^n \bar{y}\hat{y_i} - \sum_{i=1}^n \bar{y}y_i + n\bar{y}^2 \right) + \dfrac{S_{xy}^2}{S_{xx}} = \\
+= S_{yy} - 2\left(\hat{\beta_0}\sum_{i=1}^n y_i + \hat{\beta_1}\sum_{i=1}^n x_i y_i - \bar{y}\sum_{i=1}^n\hat{y_i} - \bar{y}\sum_{i=1}^n y_i + n\bar{y}^2 \right) + \dfrac{S_{xy}^2}{S_{xx}} = \\
+S_{yy} - 2\left(\hat{\beta_0}\sum_{i=1}^n y_i + \hat{\beta_1}\sum_{i=1}^n x_i y_i - \bar{y}\sum_{i=1}^n\hat{y_i} - n\bar{y}^2 + n\bar{y}^2 \right) + \dfrac{S_{xy}^2}{S_{xx}} = \\
+S_{yy} - 2\left(\hat{\beta_0}\sum_{i=1}^n y_i + \hat{\beta_1}\sum_{i=1}^n x_i y_i - \bar{y}\sum_{i=1}^n\hat{y_i} \right) + \dfrac{S_{xy}^2}{S_{xx}} = \\
+S_{yy} - 2\left(\hat{\beta_0}\sum_{i=1}^n y_i + \hat{\beta_1}\sum_{i=1}^n x_i y_i - \bar{y}\sum_{i=1}^n (\hat{\beta_0} + \hat{\beta_1}x_i)\right) + \dfrac{S_{xy}^2}{S_{xx}} = \\
+\end{gathered}
+\end{equation*}
+
+\begin{equation*}
+\begin{gathered}
+S_{yy} - 2\left(\hat{\beta_0}\sum_{i=1}^n y_i + \hat{\beta_1}\sum_{i=1}^n x_i y_i - \bar{y}n\hat{\beta_0} - \bar{y}\hat{\beta_1}\sum_{i=1}^n x_i\right) + \dfrac{S_{xy}^2}{S_{xx}} = \\
+S_{yy} - 2\left(\hat{\beta_0}\sum_{i=1}^n y_i + \hat{\beta_1}\sum_{i=1}^n x_i y_i - \hat{\beta_0}\sum_{i=1}^n y_i - \bar{y}\hat{\beta_1}\sum_{i=1}^n x_i\right) + \dfrac{S_{xy}^2}{S_{xx}} = \\
+S_{yy} - 2\left(\hat{\beta_1}\sum_{i=1}^n x_i y_i - \bar{y}\hat{\beta_1}\sum_{i=1}^n x_i\right) + \dfrac{S_{xy}^2}{S_{xx}} = \\
+S_{yy} - 2\hat{\beta_1}\left(\sum_{i=1}^n x_i y_i - \bar{y}\sum_{i=1}^n x_i\right) + \dfrac{S_{xy}^2}{S_{xx}} = S_{yy} - 2\hat{\beta_1}S_{xy} + \dfrac{S_{xy}^2}{S_{xx}} = \\
+S_{yy} - 2\dfrac{S_{xy}^2}{S_{xx}} + \dfrac{S_{xy}^2}{S_{xx}} = S_{yy} - \dfrac{S_{xy}^2}{S_{xx}}
+\end{gathered}
+\end{equation*}
+
+
+
+\subsection{}
+The null and alternative hypotheses for the F-test in 4.1 are the following:
+\[ H_0: \beta_1 = 0 \]
+\[ H_a: \beta_1 \neq 0 \]
+
+The intuition behind such a formulation of hypotheses can be explained as follows: if we assume that $H_0$ is true, meaning that $\beta_1 = 0$, this indicates that basically there is no point of constructing a regression line other than the line $y = \overline{y}$ to the data since there is no relationship between the dependent variable \textbf{y} and the independent variable \textbf{x}, and all the variance in the data is due to the error term $\varepsilon$. So, if we run a regression model, estimate the parameters $\beta_0$ and $\beta_1$, and construct a regression line, then $\frac{SSR}{SSE}$ should be very close to zero, and thus F* statistics, which is \bm{$(n-2)\frac{SSR}{SSE}$} in the case of simple linear regression, should also be very close to zero. However, if $H_a$ is true, meaning that $\beta_1 \neq 0$, then it means fitting a regression line on the data is going to be useful since it can explain some of the variation in the target variable \textbf{y}.
+
+\subsection{}
+{\large
+\begin{equation*}
+\begin{split}
+& \frac{S_{xy}}{S_{xx}} = \frac{\sum_{i=1}^n(x_i-\bar{x})(y_i-\bar{y})}{\sum_{i=1}^n(x_i-\bar{x})^2} = \frac{\sum_{i=1}^n x_i y_i - \bar{x}\sum_{i=1}^n y_i - \bar{y}\sum_{i=1}^n x_i + n\bar{x} \bar{y}}{\sum_{i=1}^n x_i^2 - 2\bar{x}\sum_{i=1}^n x_i + n\bar{x}^2 } = \\
+\\
+& = \frac{\sum_{i=1}^n x_i y_i - n\bar{x}\bar{y} - n\bar{x}\bar{y} + n\bar{x} \bar{y}}{\sum_{i=1}^n x_i^2 - \frac{2(\sum_{i=1}^n x_i)^2}{n} + n\bar{x}^2} = \frac{\sum_{i=1}^n x_i y_i - n\bar{x}\bar{y}}{\sum_{i=1}^n x_i^2 - \frac{2(\sum_{i=1}^n x_i)^2}{n} + \frac{(\sum_{i=1}^n x_i)^2}{n}} = \\
+\\
+& =\frac{\sum_{i=1}^n x_i y_i - \frac{(\sum_{i=1}^n x_i)(\sum_{i=1}^n y_i)}{n}}{\sum_{i=1}^n x_i^2 - \frac{(\sum_{i=1}^n x_i)^2}{n}} = \frac{n\sum_{i=1}^n x_i y_i - \sum_{i=1}^n x_i\sum_{i=1}^n y_i}{n\sum_{i=1}^n x_i^2 - (\sum_{i=1}^n x_i)^2} = \hat{\beta_1}
+\end{split}
+\end{equation*}
+}
+
+\subsection{}
+
+Here, we will utilize one of the results we got in 4.1, specifically the fact that $SSR = \dfrac{S_{xy}^2}{S_{xx}}$, and the equation that we proved in 4.3.
+\begin{equation*}
+\begin{gathered} 
+F^\star = \dfrac{\dfrac{SSR}{1}}{\dfrac{SSE}{n-2}} = \dfrac{\dfrac{S_{xy}^2}{S_{xx}}}{s^2} = \dfrac{\hat{\beta_1}S_{xy}}{s^2} = \dfrac{\hat{\beta_1}\dfrac{S_{xy}}{S_{xx}}S_{xx}}{s^2} = \\ = \dfrac{(\hat{\beta_1})^2 S_{xx}}{s^2} = \dfrac{(\hat{\beta_1})^2}{\dfrac{s^2}{S_{xx}}} = \left(\dfrac{\hat{\beta_1}}{\dfrac{s}{\sqrt{S_{xx}}}}\right)^2 = \left(\dfrac{\hat{\beta_1}}{SE(\hat{\beta_1})}\right)^2 = (t^\star)^2
+\end{gathered}
+\end{equation*}
+
+\begin{equation*}
+F^\star = (t^\star)^2 \Rightarrow (F^\star)^{1/2} = |t^\star|    
+\end{equation*}
+
+\exercise{}
+\subsection{}
+The formula for finding estimates of parameters $\beta_0$, $\beta_1$ and $\beta_2$ is as follows:
+\[ \bm{\hat{\beta}} = (\bm{X^TX})^{-1}\bm{X^Ty} \]
+
+However, we should modify the matrix $\bm{X}$ in order to account for the intercept estimate parameter $\hat{\beta_0}$ in the following way:
+
+\begin{equation*}
+{\large
+X = 
+\begin{bmatrix}
+ 1 & 2 & 1 \\
+ 1 & -2 & -2 \\
+ 1 & 1 & 0 \\
+ 1 & 3 & 2
+\end{bmatrix}
+}
+\end{equation*}
+
+So, now we can represent our regression model as $\hat{y} = \bm{X\hat{\beta}}$, and calculate $\bm{\hat{\beta}}$, which represents the vector  $\begin{pmatrix}
+   \hat{\beta_0} \\ 
+   \hat{\beta_1} \\
+   \hat{\beta_2}
+\end{pmatrix}$.
+
+\begin{equation*}
+\begin{gathered}
+{\large
+\bm{\hat{\beta}} =  
+\left(
+\begin{bmatrix}
+ 1 & 1 & 1 & 1 \\
+ 2 & -2 & 1 & 3 \\
+ 1 & -2 & 0 & 2 \\
+\end{bmatrix}
+\begin{bmatrix}
+1 & 2 & 1 \\
+1 & -2 & -2 \\
+1 & 1 & 0 \\
+1 & 3 & 2
+\end{bmatrix}
+\right)^{-1}
+\begin{bmatrix}
+ 1 & 1 & 1 & 1 \\
+ 2 & -2 & 1 & 3 \\
+ 1 & -2 & 0 & 2 \\
+\end{bmatrix}
+\begin{bmatrix}
+0 \\
+1 \\
+2 \\
+3
+\end{bmatrix} = }\\
+{\large
+\begin{bmatrix}
+4 &	4 &	1 \\
+4 &	18 & 12 \\
+1 &	12 & 9
+\end{bmatrix}^{-1}
+\begin{bmatrix}
+ 1 & 1 & 1 & 1 \\
+ 2 & -2 & 1 & 3 \\
+ 1 & -2 & 0 & 2 \\
+\end{bmatrix}
+\begin{bmatrix}
+0 \\
+1 \\
+2 \\
+3
+\end{bmatrix} = }\\
+{\large
+\begin{bmatrix}
+3 &	-4 & 5 \\
+-4 & 35/6 & -22/3 \\
+5 &	-22/3 &	28/3
+\end{bmatrix}
+\begin{bmatrix}
+ 1 & 1 & 1 & 1 \\
+ 2 & -2 & 1 & 3 \\
+ 1 & -2 & 0 & 2 \\
+\end{bmatrix}
+\begin{bmatrix}
+0 \\
+1 \\
+2 \\
+3
+\end{bmatrix} = } \\
+{\large
+\begin{bmatrix}
+0 &	1 &	-1 & 1 \\
+1/3 & -1 &	11/6 &	-7/6 \\
+-1/3 &	1 &	-7/3 &	5/3
+\end{bmatrix}
+\begin{bmatrix}
+0 \\
+1 \\
+2 \\
+3
+\end{bmatrix} = 
+\begin{bmatrix}
+2 \\
+-5/6 \\
+4/3
+\end{bmatrix}
+}
+\end{gathered}
+\end{equation*}
+
+\begin{equation*}
+{\large
+\bm{\hat{\beta}} = 
+\begin{bmatrix}
+   \hat{\beta_0} \\ 
+   \hat{\beta_1} \\
+   \hat{\beta_2}
+\end{bmatrix} =
+\begin{bmatrix}
+2 \\
+-5/6 \\
+4/3
+\end{bmatrix}}
+\end{equation*}
+
+\subsection{}
+\includegraphics[width=\textwidth]{5.2.png}
+We got the same results as in 5.1.
+\end{document}
